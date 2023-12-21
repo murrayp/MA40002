@@ -1,0 +1,123 @@
+---
+title: "Discrete Time single Pop"
+format:
+  html:
+    code-fold: true
+  pdf:
+    code-fold: false    
+jupyter: python3
+---
+
+# Introduction
+
+ Mathematical models can help explain the rich nonlinear dynamics often observed in biological systems (e.g. see @FigureHareLynxData). However, models requires  assumptions about what the important components of a given system are and how these different components interact with one another. In this course we consider mathematical  models of biological systems in which there is a single independent variable - time.
+
+
+ As the models that we study will mostly be nonlinear, we will often rely on qualitative analyses of dynamical systems.
+ 
+ \textit{\large \flushleft  An example of a qualitative analysis}
+
+Let $x=x(t)$. Suppose that we wish to study the differential equation
+
+$$
+\frac{d x}{ dt}=\sin(x).
+\label{exampleODE}
+$$ {#eq-demoODE}
+The question is what is the behaviour of the solution as $t\rightarrow \infty$?.
+
+
+Separation of variables yields
+$$
+\int \frac{dx}{\sin(x)}=\int dt,
+$$ 
+hence
+$$
+t= -\ln\left|\csc(x)+\cot(x)\right|+C.
+$$
+Given the initial condition
+$$
+x(0)=x_0,
+$$
+we obtain
+$$
+t= \ln\left|\frac{\csc(x_0)+\cot(x_0)}{\csc(x)+\cot(x)}\right|.
+$$
+
+This result is exact but tricky to interpret. For example, given some initial condition 
+$$
+x(0)=\pi/4
+$$
+can you describe the behaviour of the solution as $t\rightarrow \infty$?
+
+
+We can apply a qualitative method to answer the question.
+We can  sketch the right-hand side of @eq-demoODE? 
+Then condition  the initial condition $x(0)=\pi/4$ in @fig-plot. Examine the sign of $f$ and from here we can deduce the long time behaviour. 
+
+
+
+
+```{python}
+#| label: fig-plot
+#| fig-cap: "A plot of sin(x)"
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.arange(0, 20, 0.01)
+dx_dt = np.sin(x)
+fig, ax = plt.subplots()
+ax.plot(x, dx_dt)
+plt.xlabel('x')
+plt.ylabel('dx/dt')
+ax.grid(True)
+plt.show()
+```
+
+
+
+A key skill in qualitative analysis of nonlinear system is to be able to sketch/plot nonlinear functions of one or more variables. For example, suppose we wish to sketch the function
+$$
+f=f(x;r), \quad \quad x\in [0,\infty],
+$$
+where $r$ represents a parameter $r\in\Re^+$.
+
+We will use the following procedure
+
+
++ Compute roots of $f(x)$
++ Compute limiting behaviour (e.g. as $x\rightarrow \infty$, as x=0)
++ compute turning points of $f$
+
+Often our goal is to deduce enough about the qualitative features of some $f$ (e.g. for what range of the parameter $r$ are the qualitative features unchanged).
+
+
+
+Sketch the function
+$$
+f(x)=rx(1-x).
+$$
+
+* Roots at $x=0$ and $x=1$.
+* Turning point at $x=1/2$.
+* $f\rightarrow -\infty$ as $x\rightarrow \infty$.
+
+See @fig-plotquad for sketch.
+```{python}
+#| label: fig-plotquad
+#| fig-cap: "A plot of rx(1-x)"
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.arange(0, 1, 0.01)
+y = x*(1-x)
+fig, ax = plt.subplots()
+ax.plot(x, y)
+plt.xlabel('x')
+plt.ylabel('y')
+ax.grid(True)
+plt.show()
+```
+
+A key distinction between models, determined by the biological system under study, will be whether time is treated as being a discrete or continuous variable. In the first part of this lecture course we consider models defined in discrete time.
